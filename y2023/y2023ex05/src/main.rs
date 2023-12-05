@@ -1,21 +1,16 @@
 mod tests;
 
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-};
+use std::fs::read_to_string;
 
-use y2023ex05::{part1,part2};
+use y2023ex05::{part1, part2};
 
 fn main() -> Result<(), std::io::Error> {
-    let file = File::open("./input.txt")?;
-    let reader = BufReader::new(file);
-    let lines: Vec<String> = reader.lines().map(|line| line.unwrap()).collect();
+    let input = read_to_string("./input.txt")?;
 
-    let part1: i32 = part1(&lines);
+    let part1 = part1(input.as_str());
     println!("part1 {}", part1);
 
-    let part2: i32 = part2(&lines);
+    let part2 = part2(input.as_str());
     println!("part2 {}", part2);
 
     Ok(())
