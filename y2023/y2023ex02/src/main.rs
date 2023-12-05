@@ -35,8 +35,7 @@ fn parser(s: &Vec<String>) -> HashMap<String, Vec<Vec<Vec<&str>>>> {
 fn check_limits(games: &HashMap<String, Vec<Vec<Vec<&str>>>>) -> i32 {
     let mut ret = 0;
     let limits: HashMap<&str, i32> = [("red", 12), ("green", 13), ("blue", 14)]
-        .iter()
-        .cloned()
+        .into_iter()
         .collect();
 
     for (game_id, rounds) in games.iter() {
@@ -75,10 +74,9 @@ fn check_limits(games: &HashMap<String, Vec<Vec<Vec<&str>>>>) -> i32 {
 fn part2(games: &HashMap<String, Vec<Vec<Vec<&str>>>>) -> i32 {
     let mut ret = 0;
 
-    for (_g, rounds) in games.iter() {
+    for (_, rounds) in games.iter() {
         let mut least: HashMap<&str, i32> = [("red", 0), ("green", 0), ("blue", 0)]
-            .iter()
-            .cloned()
+            .into_iter()
             .collect();
 
         for r in rounds {
