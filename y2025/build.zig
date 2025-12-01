@@ -1,5 +1,29 @@
 const std = @import("std");
 
+fn day(b: *std.Build, target: *const std.Build.ResolvedTarget, test_step: *const *std.Build.Step, optimize: *const std.builtin.OptimizeMode, d: usize) void {
+    const allocator = std.heap.page_allocator;
+    const test_name = std.fmt.allocPrint(allocator, "day{:0>2}", .{d}) catch unreachable;
+    const description = std.fmt.allocPrint(allocator, "Run day{:0>2} tests", .{d}) catch unreachable;
+    const filename = std.fmt.allocPrint(allocator, "src/day{:0>2}.zig", .{d}) catch unreachable;
+    defer allocator.free(filename);
+    defer allocator.free(description);
+    defer allocator.free(test_name);
+
+    const day_n = b.addModule(test_name, .{
+        .root_source_file = b.path(filename),
+        .target = target.*,
+        .optimize = optimize.*,
+    });
+    const day_n_test_step = b.step(test_name, description);
+    const day_n_tests = b.addTest(.{
+        .root_module = day_n,
+    });
+    const run_day_n_tests = b.addRunArtifact(day_n_tests);
+    day_n_test_step.dependOn(&run_day_n_tests.step);
+
+    test_step.*.dependOn(&run_day_n_tests.step);
+}
+
 // Although this function looks imperative, it does not perform the build
 // directly and instead it mutates the build graph (`b`) that will be then
 // executed by an external runner. The functions in `std.Build` implement a DSL
@@ -130,17 +154,5 @@ pub fn build(b: *std.Build) void {
     // and reading its source code will allow you to master it.
 
     // day 01
-    const day01 = b.addModule("day01", .{
-        .root_source_file = b.path("src/day01.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    const day01_test_step = b.step("day01", "Run day01 tests");
-    const day01_tests = b.addTest(.{
-        .root_module = day01,
-    });
-    const run_day01_tests = b.addRunArtifact(day01_tests);
-    day01_test_step.dependOn(&run_day01_tests.step);
-
-    test_step.dependOn(&run_day01_tests.step);
+    day(b, &target, &test_step, &optimize, 1);
 }
