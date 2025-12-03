@@ -56,13 +56,13 @@ fn part2(input: []const u8) !usize {
 test "day 01 part 1" {
     const input = @embedFile("inputs/day01.txt");
     const ret = try part1(input);
-    std.debug.print("part1: {d}\n", .{ret});
+    std.debug.print("Day 01 Part1: {d}\n", .{ret});
     try std.testing.expectEqual(@as(usize, 1026), try part1(input));
 }
 
 test "day 01 part 2" {
     const input = @embedFile("inputs/day01.txt");
     const ret = try part2(input);
-    std.debug.print("part2: {d}\n", .{ret});
+    std.debug.print("Day 01 Part2: {d}\n", .{ret});
     try std.testing.expectEqual(@as(usize, 5923), try part2(input));
 }

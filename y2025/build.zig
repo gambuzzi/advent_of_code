@@ -153,8 +153,8 @@ pub fn build(b: *std.Build) void {
     // Lastly, the Zig build system is relatively simple and self-contained,
     // and reading its source code will allow you to master it.
 
-    // day 01
+    // days tests
     day(b, &target, &test_step, &optimize, 1);
-    // day 02
     day(b, &target, &test_step, &optimize, 2);
+    day(b, &target, &test_step, &optimize, 3);
 }

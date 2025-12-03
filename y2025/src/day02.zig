@@ -86,7 +86,7 @@ test "day 02 part 1" {
     var data = try parser(input, test_allocator);
     defer data.deinit(test_allocator);
     const ret = try part1(&data);
-    std.debug.print("part1: {d}\n", .{ret});
+    std.debug.print("Day 02 Part1: {d}\n", .{ret});
     try std.testing.expectEqual(@as(usize, 21139440284), try part1(&data));
 }
 
@@ -95,6 +95,6 @@ test "day 02 part 2" {
     var data = try parser(input, test_allocator);
     defer data.deinit(test_allocator);
     const ret = try part2(&data);
-    std.debug.print("part2: {d}\n", .{ret});
+    std.debug.print("Day 02 Part2: {d}\n", .{ret});
     try std.testing.expectEqual(@as(usize, 38731915928), try part2(&data));
 }
