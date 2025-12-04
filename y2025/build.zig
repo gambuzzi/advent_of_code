@@ -157,4 +157,5 @@ pub fn build(b: *std.Build) void {
     day(b, &target, &test_step, &optimize, 1);
     day(b, &target, &test_step, &optimize, 2);
     day(b, &target, &test_step, &optimize, 3);
+    day(b, &target, &test_step, &optimize, 4);
 }
