@@ -1,6 +1,6 @@
 const std = @import("std");
 
-fn day(b: *std.Build, target: *const std.Build.ResolvedTarget, test_step: *const *std.Build.Step, optimize: *const std.builtin.OptimizeMode, d: usize) void {
+fn day(b: *std.Build, target: *const std.Build.ResolvedTarget, test_step: *const *std.Build.Step, optimize: *const std.builtin.OptimizeMode, d: usize) *std.Build.Module {
     const allocator = std.heap.page_allocator;
     const test_name = std.fmt.allocPrint(allocator, "day{:0>2}", .{d}) catch unreachable;
     const description = std.fmt.allocPrint(allocator, "Run day{:0>2} tests", .{d}) catch unreachable;
@@ -22,6 +22,8 @@ fn day(b: *std.Build, target: *const std.Build.ResolvedTarget, test_step: *const
     day_n_test_step.dependOn(&run_day_n_tests.step);
 
     test_step.*.dependOn(&run_day_n_tests.step);
+
+    return day_n;
 }
 
 // Although this function looks imperative, it does not perform the build
@@ -154,10 +156,11 @@ pub fn build(b: *std.Build) void {
     // and reading its source code will allow you to master it.
 
     // days tests
-    day(b, &target, &test_step, &optimize, 1);
-    day(b, &target, &test_step, &optimize, 2);
-    day(b, &target, &test_step, &optimize, 3);
-    day(b, &target, &test_step, &optimize, 4);
-    day(b, &target, &test_step, &optimize, 5);
-    day(b, &target, &test_step, &optimize, 6);
+    _ = day(b, &target, &test_step, &optimize, 1);
+    _ = day(b, &target, &test_step, &optimize, 2);
+    _ = day(b, &target, &test_step, &optimize, 3);
+    _ = day(b, &target, &test_step, &optimize, 4);
+    _ = day(b, &target, &test_step, &optimize, 5);
+    _ = day(b, &target, &test_step, &optimize, 6);
+    _ = day(b, &target, &test_step, &optimize, 7);
 }
